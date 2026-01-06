@@ -8,7 +8,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2103/2103633.png">
     <title>ETM Module v3.1.1.26</title>
-    <link rel="manifest" href="./assets/manifest-DpDcz1pi.json">
+    <link rel="manifest" href="./assets/manifest-DjvnApfN.json">
+    <!-- Tailwind CDN будет кэшироваться Service Worker-ом для оффлайн работы -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
@@ -46,16 +47,16 @@
 <script type="importmap">
 {
   "imports": {
-    "vite": "https://esm.sh/vite@^7.3.0",
-    "react/": "https://esm.sh/react@^19.2.3/",
     "react": "https://esm.sh/react@^19.2.3",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "@capacitor/cli": "https://esm.sh/@capacitor/cli@^8.0.0"
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "@capacitor/cli": "https://esm.sh/@capacitor/cli@^8.0.0",
+    "vite": "https://esm.sh/vite@^7.3.0",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
   }
 }
 </script>
-  <script type="module" crossorigin src="./assets/index-DudyA6pi.js"></script>
+  <script type="module" crossorigin src="./assets/index-Ds4ahmr1.js"></script>
 </head>
 <body class="bg-gray-950">
     <div id="root"></div>
@@ -63,8 +64,11 @@
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('./sw.js')
-            .then(reg => console.log('SW Active v3.1.1.26'))
-            .catch(err => console.error('SW Error', err));
+            .then(reg => {
+              console.log('ETM Offline System Ready');
+              reg.update();
+            })
+            .catch(err => console.error('Offline Error', err));
         });
       }
     </script>
